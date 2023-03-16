@@ -1,0 +1,6 @@
+- hosts: ubuntu01.rae-corp.com
+  roles:
+  - role: unifiAPController
+  - role: OracleVMHost
+  vars:
+    ansible_user: root

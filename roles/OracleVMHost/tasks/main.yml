@@ -1,0 +1,15 @@
+- name: Add an Apt signing key, will not download if present
+  ansible.builtin.apt_key:
+    id: B9F8D658297AF3EFC18D5CDFA2F683C52980AECF
+    url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+    state: present
+
+- name: Set Sources
+  ansible.builtin.apt_repository:
+    repo: "deb https://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
+    state: present
+
+- name: Update repositories cache and install "virtualbox-6.1" package
+  ansible.builtin.apt:
+    name: virtualbox-6.1
+    update_cache: yes
