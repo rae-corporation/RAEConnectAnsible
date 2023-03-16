@@ -1,4 +1,4 @@
-- hosts: ubuntu01.rae-corp.com
+- hosts: all
   roles:
   - role: unifiAPController
   - role: OracleVMHost
