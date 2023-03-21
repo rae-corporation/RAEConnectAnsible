@@ -7,10 +7,21 @@
     user: "root"
   become: true
 
-- name: remove rae user's cron job
+- name: Create ansible cron log file
+  ansible.builtin.file:
+    path: /var/log/rae_connect_asnible.log
+    state: touch
+    owner: rae
+    group: rae
+    mode: '0644'
+  become: true
+
+- name: Ansible Update
   ansible.builtin.cron:
-    name: "update and upgrade"
-    state: absent
+    name: "Ansible Update"
+    minute: "0"
+    hour: "3"
+    job: "/home/rae/.local/bin/ansible-pull -U git@github.com:rae-corporation/RAEConnectAnsible.git -C main site.yml -i hosts >> /var/log/rae_connect_asnible.log 2>&1"
 
 - name: Change file ownership, group and permissions
   ansible.builtin.file:
@@ -19,3 +30,9 @@
     owner: rae
     group: rae
     mode: '0644'
+
+# - name: Git checkout
+#   ansible.builtin.git:
+#     repo: 'https://foosball.example.org/path/to/repo.git'
+#     dest: /srv/checkout
+#     version: release-0.22
