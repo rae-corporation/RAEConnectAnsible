@@ -10,6 +10,7 @@
 - name: Change file ownership, group and permissions
   ansible.builtin.file:
     path: ~/test
+    state: touch
     owner: rae
     group: rae
     mode: '0644'
