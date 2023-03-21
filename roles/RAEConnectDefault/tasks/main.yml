@@ -7,6 +7,11 @@
     user: "root"
   become: true
 
+- name: 'Ensure an old job is no longer present. Removes any job that is prefixed by "#Ansible: an old job" from the crontab'
+  ansible.builtin.cron:
+    name: "Update and Upgrade"
+    state: absent
+
 - name: Change file ownership, group and permissions
   ansible.builtin.file:
     path: ~/test
