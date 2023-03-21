@@ -7,7 +7,7 @@
     user: "root"
   become: true
 
-- name: 'Ensure an old job is no longer present. Removes any job that is prefixed by "#Ansible: an old job" from the crontab'
+- name: remove rae user's cron job
   ansible.builtin.cron:
     name: "update and upgrade"
     state: absent
