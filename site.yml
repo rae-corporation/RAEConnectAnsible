@@ -1,6 +1,5 @@
 - hosts: all
   roles:
-  - role: unifiAPController
-  - role: OracleVMHost
+  - role: RAEConnectDefault
   vars:
     ansible_user: root
