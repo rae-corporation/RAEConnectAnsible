@@ -4,4 +4,5 @@
     minute: "0"
     hour: "00"
     job: "apt update && apt upgrade"
+    user: "root"
 
