@@ -23,16 +23,25 @@
     hour: "3"
     job: "/home/rae/.local/bin/ansible-pull -U git@github.com:rae-corporation/RAEConnectAnsible.git -C main site.yml -i hosts >> /var/log/rae_connect_asnible.log 2>&1"
 
-- name: Change file ownership, group and permissions
-  ansible.builtin.file:
-    path: ~/test
-    state: touch
-    owner: rae
-    group: rae
-    mode: '0644'
+- name: Install dotnet SDK
+  ansible.builtin.apt:
+    name: dotnet-sdk-7.0
+    update_cache: yes
 
-# - name: Git checkout
-#   ansible.builtin.git:
-#     repo: 'https://foosball.example.org/path/to/repo.git'
-#     dest: /srv/checkout
-#     version: release-0.22
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /src/RAEConnect
+    state: directory
+    mode: '0755'
+
+- name: Git checkout
+  ansible.builtin.git:
+    repo: 'https://github.com/rae-corporation/RAEConnectServer.git'
+    dest: /src/RAEConnect
+    version: release-0.22
+    register: gitResult
+
+- name: Change the working directory to somedir/ before executing the command
+  ansible.builtin.shell: somescript.sh >> somelog.txt
+  args:
+    chdir: somedir/
