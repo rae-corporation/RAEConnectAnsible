@@ -27,12 +27,16 @@
   ansible.builtin.apt:
     name: dotnet-sdk-7.0
     update_cache: yes
+  become: true
 
 - name: Create a directory if it does not exist
   ansible.builtin.file:
     path: /src/RAEConnect
     state: directory
+    owner: rae
+    group: rae
     mode: '0755'
+  become: true
 
 - name: Git checkout
   ansible.builtin.git:
@@ -40,6 +44,15 @@
     dest: /src/RAEConnect
     version: release-0.22
     register: gitResult
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /RAEConnect
+    state: directory
+    owner: rae
+    group: rae
+    mode: '0755'
+  become: true
 
 - name: Deploy RAE Connect
   ansible.builtin.shell: dotnet build /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\PublishProfile
