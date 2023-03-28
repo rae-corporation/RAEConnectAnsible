@@ -1,0 +1,8 @@
+[Unit]
+Description=RAEConnect Server daemon
+
+[Service]
+ExecStart=/RAEConnect/RAEConnectServer
+
+[Install]
+WantedBy=multi-user.target
