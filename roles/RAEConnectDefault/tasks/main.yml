@@ -41,7 +41,9 @@
     version: release-0.22
     register: gitResult
 
-- name: Change the working directory to somedir/ before executing the command
-  ansible.builtin.shell: somescript.sh >> somelog.txt
+- name: Deploy RAE Connect
+  ansible.builtin.shell: dotnet build /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\PublishProfile
   args:
-    chdir: somedir/
+    chdir: /src/RAEConnect
+  when: gitResult.before != gitResult.after
+
