@@ -54,7 +54,7 @@
   become: true
 
 - name: Deploy RAE Connect
-  ansible.builtin.shell: dotnet build /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=Properties\PublishProfiles\PublishProfile
+  ansible.builtin.shell: dotnet publish /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
   args:
     chdir: /src/RAEConnect
   when: gitResult.before != gitResult.after
