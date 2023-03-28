@@ -40,7 +40,7 @@
 
 - name: Git checkout
   ansible.builtin.git:
-    repo: 'https://github.com/rae-corporation/RAEConnectServer.git'
+    repo: 'git@github.com:rae-corporation/RAEConnectServer.git'
     dest: /src/RAEConnect
     version: release-0.22
   register: gitResult
