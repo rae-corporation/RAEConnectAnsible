@@ -80,4 +80,5 @@
   ansible.builtin.copy:
     src: ./RAEConnect.service
     dest: /etc/systemd/system/
+  become: true
   when: not service_stat.stat.exists
