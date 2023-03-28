@@ -25,7 +25,7 @@
 
 - name: Install dotnet SDK
   ansible.builtin.apt:
-    name: dotnet-sdk-7.0
+    name: dotnet-sdk-6.0
     update_cache: yes
   become: true
 
