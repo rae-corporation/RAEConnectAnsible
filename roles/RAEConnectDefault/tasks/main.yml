@@ -73,7 +73,7 @@
 
 - name: Check Server service file exists 
   stat:
-    path: /etc/systemd/system
+    path: /etc/systemd/system/RAEConnect.service
   register: service_stat
 
 - name: Copy systemd service file
