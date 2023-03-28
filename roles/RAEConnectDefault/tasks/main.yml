@@ -38,14 +38,13 @@
     mode: '0755'
   become: true
 
-- name: Git checkout
+- name: Git checkout RAEConnectServer
   ansible.builtin.git:
     repo: 'git@github.com:rae-corporation/RAEConnectServer.git'
     dest: /src/RAEConnect
-    version: release-0.22
   register: gitResult
 
-- name: Create a directory if it does not exist
+- name: Create application directory
   ansible.builtin.file:
     path: /RAEConnect
     state: directory
