@@ -91,5 +91,5 @@
 - name: Start and enable RAEConnect Server
   ansible.builtin.systemd:
     state: started
-    enable: true
+    enabled: true
     name: RAEConnect
