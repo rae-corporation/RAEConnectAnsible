@@ -2,7 +2,7 @@
 Description=RAEConnect Server daemon
 
 [Service]
-Type=forking
+Type=exec
 ExecStart=/RAEConnect/RAEConnectServer >> /var/log/RAEConnect/RAEConnect.log &2>1
 
 [Install]

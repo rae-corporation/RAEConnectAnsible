@@ -65,12 +65,6 @@
     chdir: /src/RAEConnect
   when: gitResult.before != gitResult.after or not exe_stat.stat.exists
 
-- name: Deploy RAE Connect
-  ansible.builtin.shell: dotnet publish /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
-  args:
-    chdir: /src/RAEConnect
-  when: gitResult.before != gitResult.after or not exe_stat.stat.exists
-
 - name: Check Server service file exists 
   stat:
     path: /etc/systemd/system/RAEConnect.service
@@ -83,7 +77,11 @@
   become: true
   when: not service_stat.stat.exists
 
-- name: Create application directory
+- name: Force systemd to reread configs
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Create logging directory
   ansible.builtin.file:
     path: /var/log/RAEConnect
     state: directory
