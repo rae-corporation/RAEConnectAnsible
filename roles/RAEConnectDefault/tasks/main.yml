@@ -80,6 +80,7 @@
 - name: Force systemd to reread configs
   ansible.builtin.systemd:
     daemon_reload: true
+  become: true
 
 - name: Create logging directory
   ansible.builtin.file:
