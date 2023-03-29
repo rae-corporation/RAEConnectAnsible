@@ -1,0 +1,17 @@
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    eno1:
+      dhcp4: true
+      optional: true
+    eno2:
+      dhcp4: true
+      optional: true
+    eno3:
+      dhcp4: true
+      optional: true
+    eno4:
+      dhcp4: false
+      optional: true
+      
+  version: 2

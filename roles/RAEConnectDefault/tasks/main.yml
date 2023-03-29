@@ -74,6 +74,12 @@
     dest: /etc/systemd/system/
   become: true
 
+- name: Copy Network config file for quick boot
+  ansible.builtin.copy:
+    src: ./00-installer-config.yaml
+    dest: /etc/netplan
+  become: true
+
 - name: Force systemd to reread configs
   ansible.builtin.systemd:
     daemon_reload: true
@@ -102,3 +108,4 @@
     special_time: reboot
     job: "/usr/sbin/ip addr add 172.16.255.254/16 dev eno4"
   become: true
+
