@@ -80,6 +80,12 @@
     dest: /etc/netplan
   become: true
 
+- name: Copy SSH config file
+  ansible.builtin.copy:
+    src: ./ssh_config
+    dest: /etc/ssh/
+  become: true
+
 - name: Force systemd to reread configs
   ansible.builtin.systemd:
     daemon_reload: true
