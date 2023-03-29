@@ -2,7 +2,8 @@
 Description=RAEConnect Server daemon
 
 [Service]
-ExecStart=/RAEConnect/RAEConnectServer >> /var/log/RAEConnect.log &2>1
+Type=forking
+ExecStart=/RAEConnect/RAEConnectServer >> /var/log/RAEConnect/RAEConnect.log &2>1
 
 [Install]
 WantedBy=multi-user.target

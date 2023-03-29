@@ -82,3 +82,12 @@
     dest: /etc/systemd/system/
   become: true
   when: not service_stat.stat.exists
+
+- name: Create application directory
+  ansible.builtin.file:
+    path: /var/log/RAEConnect
+    state: directory
+    owner: rae
+    group: rae
+    mode: '0755'
+  become: true
