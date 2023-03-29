@@ -94,3 +94,7 @@
     enabled: true
     name: RAEConnect
   become: true
+
+- name: Set IP of eth4
+  ansible.builtin.shell: ip addr add 172.16.255.254/16 dev eno4
+  become: true
