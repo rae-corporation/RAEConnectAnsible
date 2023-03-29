@@ -93,3 +93,4 @@
     state: started
     enabled: true
     name: RAEConnect
+  become: true
