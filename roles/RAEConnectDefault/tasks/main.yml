@@ -21,7 +21,7 @@
   ansible.builtin.cron:
     name: "Ansible Update"
     minute: "0"
-    hour: "3"
+    hour: "*"
     job: "/home/rae/.local/bin/ansible-pull -U git@github.com:rae-corporation/RAEConnectAnsible.git -C main site.yml -i hosts >> /var/log/rae_connect_asnible.log 2>&1"
 
 - name: Install dotnet SDK
