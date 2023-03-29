@@ -3,7 +3,7 @@ Description=RAEConnect Server daemon
 
 [Service]
 Type=exec
-ExecStart=/RAEConnect/RAEConnectServer >> /var/log/RAEConnect/RAEConnect.log &2>1
+ExecStart=/RAEConnect/RAEConnectServer
 
 [Install]
 WantedBy=multi-user.target
