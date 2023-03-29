@@ -75,7 +75,6 @@
     src: ./RAEConnect.service
     dest: /etc/systemd/system/
   become: true
-  when: not service_stat.stat.exists
 
 - name: Force systemd to reread configs
   ansible.builtin.systemd:
