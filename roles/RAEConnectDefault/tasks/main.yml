@@ -74,7 +74,7 @@
 
 - name: Stop Connect
   ansible.builtin.systemd:
-    state: "stopped"
+    state: stopped
   become: true
 
 - name: Deploy RAE Connect
