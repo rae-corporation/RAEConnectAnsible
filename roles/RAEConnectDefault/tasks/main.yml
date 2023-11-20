@@ -72,10 +72,10 @@
     daemon_reload: true
   become: true
 
-# - name: Stop Connect
-#   ansible.builtin.systemd:
-#     state: "stopped"
-#   become: true
+- name: Stop Connect
+  ansible.builtin.systemd:
+    state: "stopped"
+  become: true
 
 - name: Deploy RAE Connect
   ansible.builtin.shell: dotnet publish /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
