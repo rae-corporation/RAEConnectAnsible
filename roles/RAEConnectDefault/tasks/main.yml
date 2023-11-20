@@ -20,7 +20,7 @@
 - name: Ansible Update
   ansible.builtin.cron:
     name: "Ansible Update"
-    minute: "/5"
+    minute: "*/5"
     hour: "*"
     job: "/home/rae/.local/bin/ansible-pull -U git@github.com:rae-corporation/RAEConnectAnsible.git -C Dev site.yml -i hosts >> /var/log/rae_connect_asnible.log 2>&1"
 
