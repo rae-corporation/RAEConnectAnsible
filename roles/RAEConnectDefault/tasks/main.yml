@@ -43,6 +43,7 @@
   ansible.builtin.git:
     repo: 'git@github.com:rae-corporation/RAEConnectServer.git'
     dest: /src/RAEConnect
+    version: Dev
   register: gitResult
 
 - name: Create application directory
