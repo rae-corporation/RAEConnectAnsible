@@ -20,7 +20,7 @@
 - name: Ansible Update
   ansible.builtin.cron:
     name: "Ansible Update"
-    minute: "0"
+    minute: "*/5"
     hour: "*"
     job: "/home/rae/.local/bin/ansible-pull -U git@github.com:rae-corporation/RAEConnectAnsible.git -C main site.yml -i hosts >> /var/log/rae_connect_asnible.log 2>&1"
 
@@ -43,6 +43,7 @@
   ansible.builtin.git:
     repo: 'git@github.com:rae-corporation/RAEConnectServer.git'
     dest: /src/RAEConnect
+    version: main
   register: gitResult
 
 - name: Create application directory
@@ -59,6 +60,23 @@
   stat:
     path: /RAEConnect/RAEConnectServer
   register: exe_stat
+  
+- name: Copy RAEConnect systemd service file
+  ansible.builtin.copy:
+    src: ./RAEConnect.service
+    dest: /etc/systemd/system/
+  become: true
+
+- name: Force systemd to reread configs
+  ansible.builtin.systemd:
+    daemon_reload: true
+  become: true
+
+- name: Stop Connect
+  ansible.builtin.systemd:
+    state: stopped
+    name: RAEConnect
+  become: true
 
 - name: Deploy RAE Connect
   ansible.builtin.shell: dotnet publish /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
@@ -68,11 +86,6 @@
 
 
 
-- name: Copy RAEConnect systemd service file
-  ansible.builtin.copy:
-    src: ./RAEConnect.service
-    dest: /etc/systemd/system/
-  become: true
 
 - name: Copy Network config file for quick boot
   ansible.builtin.copy:
@@ -86,10 +99,7 @@
     dest: /etc/ssh/
   become: true
 
-- name: Force systemd to reread configs
-  ansible.builtin.systemd:
-    daemon_reload: true
-  become: true
+
 
 - name: Create logging directory
   ansible.builtin.file:
