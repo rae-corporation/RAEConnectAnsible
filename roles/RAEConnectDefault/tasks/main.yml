@@ -39,89 +39,49 @@
     mode: '0755'
   become: true
 
-- name: Git checkout RAEConnectServer
-  ansible.builtin.git:
-    repo: 'git@github.com:rae-corporation/RAEConnectServer.git'
-    dest: /src/RAEConnect
-    version: master
-  register: gitResult
+# - name: Git checkout RAEConnectServer
+#   ansible.builtin.git:
+#     repo: 'git@github.com:rae-corporation/RAEConnectServer.git'
+#     dest: /src/RAEConnect
+#     version: master
+#   register: gitResult
 
-- name: Create application directory
-  ansible.builtin.file:
-    path: /RAEConnect
-    state: directory
-    owner: rae
-    group: rae
-    mode: '0755'
-  become: true
+# - name: Create application directory
+#   ansible.builtin.file:
+#     path: /RAEConnect
+#     state: directory
+#     owner: rae
+#     group: rae
+#     mode: '0755'
+#   become: true
 
    
-- name: Check RAEConnect Server executable exists 
-  stat:
-    path: /RAEConnect/RAEConnectServer
-  register: exe_stat
+# - name: Check RAEConnect Server executable exists 
+#   stat:
+#     path: /RAEConnect/RAEConnectServer
+#   register: exe_stat
   
-- name: Copy RAEConnect systemd service file
-  ansible.builtin.copy:
-    src: ./RAEConnect.service
-    dest: /etc/systemd/system/
-  become: true
+# - name: Copy RAEConnect systemd service file
+#   ansible.builtin.copy:
+#     src: ./RAEConnect.service
+#     dest: /etc/systemd/system/
+#   become: true
 
-- name: Force systemd to reread configs
-  ansible.builtin.systemd:
-    daemon_reload: true
-  become: true
+# - name: Force systemd to reread configs
+#   ansible.builtin.systemd:
+#     daemon_reload: true
+#   become: true
 
-- name: Stop Connect
-  ansible.builtin.systemd:
-    state: stopped
-    name: RAEConnect
-  become: true
+# - name: Stop Connect
+#   ansible.builtin.systemd:
+#     state: stopped
+#     name: RAEConnect
+#   become: true
 
-- name: Deploy RAE Connect
-  ansible.builtin.shell: dotnet publish /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
-  args:
-    chdir: /src/RAEConnect
-  when: gitResult.before != gitResult.after or not exe_stat.stat.exists
+# - name: Deploy RAE Connect
+#   ansible.builtin.shell: dotnet publish /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+#   args:
+#     chdir: /src/RAEConnect
+#   when: gitResult.before != gitResult.after or not exe_stat.stat.exists
 
-
-
-
-- name: Copy Network config file for quick boot
-  ansible.builtin.copy:
-    src: ./00-installer-config.yaml
-    dest: /etc/netplan
-  become: true
-
-- name: Copy SSH config file
-  ansible.builtin.copy:
-    src: ./ssh_config
-    dest: /etc/ssh/
-  become: true
-
-
-
-- name: Create logging directory
-  ansible.builtin.file:
-    path: /var/log/RAEConnect
-    state: directory
-    owner: rae
-    group: rae
-    mode: '0755'
-  become: true
-
-- name: Start and enable RAEConnect Server
-  ansible.builtin.systemd:
-    state: started
-    enabled: true
-    name: RAEConnect
-  become: true
-
-
-- name: Set IP of eth4 at boot
-  ansible.builtin.cron:
-    name: "Set IP of eth4 at boot"
-    special_time: reboot
-    job: "/usr/sbin/ip addr add 172.16.255.254/16 dev eno4"
-  become: true
 
