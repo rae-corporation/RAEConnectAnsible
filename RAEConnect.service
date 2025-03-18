@@ -2,6 +2,8 @@
 Description=RAEConnect Server daemon
 
 [Service]
+Restart=on-failure
+RestartSec=5s
 Type=exec
 ExecStart=/RAEConnect/RAEConnectServer
 
