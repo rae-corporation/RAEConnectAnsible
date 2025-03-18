@@ -22,7 +22,7 @@
     name: "Ansible Update"
     minute: "*/5"
     hour: "*"
-    job: "/home/rae/.local/bin/ansible-pull -U git@github.com:rae-corporation/RAEConnectAnsible.git -C main site.yml -i hosts >> /var/log/rae_connect_asnible.log 2>&1"
+    job: "/home/rae/.local/bin/ansible-pull -C main site.yml >> /var/log/rae_connect_asnible.log 2>&1"
 
 - name: Install dotnet SDK
   ansible.builtin.apt:
@@ -30,6 +30,11 @@
     update_cache: yes
   become: true
 
+- name: Install dotnet 9
+  ansible.builtin.apt:
+    name: aspnetcore-runtime-9.0
+    update_cache: yes
+  become: true
 
    
 
