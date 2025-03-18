@@ -1,4 +1,4 @@
-- hosts: hosts
+- hosts: localhost
   roles:
   - role: RAEConnectDefault
   vars:
