@@ -35,9 +35,12 @@
     name: aspnetcore-runtime-9.0
     update_cache: yes
   become: true
-
    
-
+- name: Copy DashboardUpdate.sh
+  ansible.builtin.copy:
+    src: ./DashboardUpdate.sh
+    dest: /ConnectDashboard/update
+  become: true
 
 
 
