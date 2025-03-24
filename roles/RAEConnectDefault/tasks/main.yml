@@ -42,6 +42,23 @@
     dest: /ConnectDashboard/update
   become: true
 
+- name: Install DHCP Server
+  ansible.builtin.apt:
+    name: isc-dhcp-server
+    update_cache: yes
+  become: true
+
+- name: Copy dhcpd.conf file
+  ansible.builtin.copy:
+    src: dhcpd.conf
+    dest: /etc/dhcp/dhcpd.conf
+  become: true
+
+- name: Copy isc-dhcp-server file
+  ansible.builtin.copy:
+    src: isc-dhcp-server
+    dest: /etc/default/isc-dhcp-server
+  become: true
 
 
 # - name: Copy RAEConnect systemd service file
@@ -62,4 +79,8 @@
     daemon_reload: true
   become: true
 
-
+- name: Restart DHCP
+  ansible.builtin.systemd:
+    service: isc-dhcp-server.service
+    state: "reloaded"
+  become: true
