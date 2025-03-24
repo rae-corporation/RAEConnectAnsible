@@ -99,5 +99,5 @@
 - name: Restart DHCP
   ansible.builtin.systemd:
     service: kea-dhcp4-server.service
-    state: "reloaded"
+    state: "started"
   become: true
