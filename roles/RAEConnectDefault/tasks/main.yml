@@ -42,29 +42,6 @@
     dest: /ConnectDashboard/update
   become: true
 
-
-
-- name: Install DHCP Server
-  ansible.builtin.apt:
-    name: isc-dhcp-server
-    state: absent
-    update_cache: yes
-  become: true
-
-- name: Copy dhcpd.conf file
-  ansible.builtin.file:
-    path: /etc/dhcp/dhcpd.conf
-    state: absent
-  become: true
-
-- name: Copy isc-dhcp-server file
-  ansible.builtin.file:
-    path: /etc/default/isc-dhcp-server
-    state: absent
-  become: true
-
-
-
 - name: Install isc-kea
   ansible.builtin.apt:
     name: kea
