@@ -42,22 +42,39 @@
     dest: /ConnectDashboard/update
   become: true
 
+
+
 - name: Install DHCP Server
   ansible.builtin.apt:
     name: isc-dhcp-server
+    state: absent
     update_cache: yes
   become: true
 
 - name: Copy dhcpd.conf file
-  ansible.builtin.copy:
-    src: dhcpd.conf
-    dest: /etc/dhcp/dhcpd.conf
+  ansible.builtin.file:
+    path: /etc/dhcp/dhcpd.conf
+    state: absent
   become: true
 
 - name: Copy isc-dhcp-server file
+  ansible.builtin.file:
+    path: /etc/default/isc-dhcp-server
+    state: absent
+  become: true
+
+
+
+- name: Install isc-kea
+  ansible.builtin.apt:
+    name: kea
+    update_cache: yes
+  become: true
+
+- name: Copy kea-dhcp4.conf
   ansible.builtin.copy:
-    src: isc-dhcp-server
-    dest: /etc/default/isc-dhcp-server
+    src: ./kea-dhcp4.conf
+    dest: /etc/kea/kea-dhcp4.conf
   become: true
 
 
