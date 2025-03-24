@@ -98,6 +98,6 @@
 
 - name: Restart DHCP
   ansible.builtin.systemd:
-    service: isc-dhcp-server.service
+    service: kea-dhcp4-server.service
     state: "reloaded"
   become: true
