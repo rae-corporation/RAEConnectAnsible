@@ -61,8 +61,6 @@
   
 - name: Task if string found via grep
   shell: echo send dhcp-client-identifier = hardware\; >> /etc/dhcp/dhclient.conf
-  debug:
-    msg: "String found using grep!"
   when: grep_result.rc == 0
 
 - name: Restart DHCP if dhclient.conf updated
