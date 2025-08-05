@@ -57,7 +57,7 @@
 - name: Check for string with grep
   shell: cat /etc/dhcp/dhclient.conf | grep -E "^[^#].*dhcp-client-identifier = hardware"
   register: grep_result
-  ignore_errors: true
+  ignore_errors: yes
   
 - name: Task if string found via grep
   shell: echo send dhcp-client-identifier = hardware\; >> /etc/dhcp/dhclient.conf
