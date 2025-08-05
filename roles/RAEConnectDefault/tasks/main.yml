@@ -54,6 +54,20 @@
     dest: /etc/kea/kea-dhcp4.conf
   become: true
 
+- name: Check for string with grep
+  shell: cat /etc/dhcp/dhclient.conf | grep -E "^[^#].*dhcp-client-identifier = hardware"
+  register: grep_result
+  ignore_errors: true
+
+- name: Task if string found via grep
+  shell: echo send dhcp-client-identifier = hardware\; >> /etc/dhcp/dhclient.conf
+  debug:
+    msg: "String found using grep!"
+  when: grep_result.rc == 0
+
+- name: Restart DHCP if dhclient.conf updated
+  shell: dhclient -r && dhclient
+  when: grep_result.rc == 0
 
 # - name: Copy RAEConnect systemd service file
 #   ansible.builtin.copy:
