@@ -62,11 +62,11 @@
   
 - name: Task if string found via grep
   shell: echo send dhcp-client-identifier = hardware\; >> /etc/dhcp/dhclient.conf
-  when: grep_result.rc == 0
+  when: grep_result.rc == 1
 
 - name: Restart DHCP if dhclient.conf updated
   shell: dhclient -r && dhclient
-  when: grep_result.rc == 0
+  when: grep_result.rc == 1
 
 # - name: Copy RAEConnect systemd service file
 #   ansible.builtin.copy:
