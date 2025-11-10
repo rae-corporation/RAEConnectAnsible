@@ -81,7 +81,7 @@
   register: grep_result
   ignore_errors: yes
   failed_when: grep_result.rc != 0 and grep_result.rc != 1
-  when: disable_network_config_file.stat.exists == false
+  #when: disable_network_config_file.stat.exists == false
   
 - name: Task if string found via grep
   shell: echo send dhcp-client-identifier = hardware\; >> /etc/dhcp/dhclient.conf
