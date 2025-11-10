@@ -53,7 +53,7 @@
 - name: Display "disable_network_config.txt" existence status
   debug:
     msg: "disable_network_config.txt exists"
-  when: file_status.stat.exists
+  when: file_status.stat.exists == true
 
 - name: Display "disable_network_config.txt" nonexistence status
   debug:
