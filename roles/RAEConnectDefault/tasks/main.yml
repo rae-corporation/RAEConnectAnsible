@@ -43,10 +43,24 @@
     dest: /ConnectDashboard/update
   become: true
 
+
+
 - name: Check if the "disable_network_config.txt" file exists
   ansible.builtin.stat:
     path: /disable_network_config.txt
   register: disable_network_config_file
+
+- name: Display "disable_network_config.txt" existence status
+  debug:
+    msg: "disable_network_config.txt exists"
+  when: file_status.stat.exists
+
+- name: Display "disable_network_config.txt" nonexistence status
+  debug:
+    msg: "disable_network_config.txt does not exist"
+  when: file_status.stat.exists == false
+
+
 
 - name: Install isc-kea
   ansible.builtin.apt:
