@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\roles",
+    "\\roles\\RAEConnectDefault",
+    "\\roles\\RAEConnectDefault\\tasks"
+  ],
+  "SelectedNode": "\\roles\\RAEConnectDefault\\tasks\\main.yml",
+  "PreviewInSolutionExplorer": false
+}
