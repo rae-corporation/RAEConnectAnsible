@@ -53,14 +53,14 @@
     name: kea
     update_cache: yes
   become: true
-  when: disable_network_config_file.stat.exists == false
+  #when: disable_network_config_file.stat.exists == false
 
 - name: Copy kea-dhcp4.conf
   ansible.builtin.copy:
     src: ./kea-dhcp4.conf
     dest: /etc/kea/kea-dhcp4.conf
   become: true
-  when: disable_network_config_file.stat.exists == false
+  #when: disable_network_config_file.stat.exists == false
 
 - name: Check for string with grep
   shell: cat /etc/dhcp/dhclient.conf | grep -E "^[^#].*dhcp-client-identifier = hardware"
@@ -100,4 +100,4 @@
     service: kea-dhcp4-server.service
     state: "started"
   become: true
-  when: disable_network_config_file.stat.exists == false
+  #when: disable_network_config_file.stat.exists == false
