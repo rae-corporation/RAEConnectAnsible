@@ -5,6 +5,6 @@
     "\\roles\\RAEConnectDefault",
     "\\roles\\RAEConnectDefault\\tasks"
   ],
-  "SelectedNode": "\\roles\\RAEConnectDefault\\tasks\\main.yml",
+  "SelectedNode": "\\isc-dhcp-server",
   "PreviewInSolutionExplorer": false
 }

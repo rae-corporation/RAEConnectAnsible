@@ -43,53 +43,31 @@
     dest: /ConnectDashboard/update
   become: true
 
-
-
-- name: Check if the "disable_network_config.txt" file exists
-  ansible.builtin.stat:
-    path: /disable_network_config.txt
-  register: disable_network_config_file
-
-- name: Display "disable_network_config.txt" existence status
-  debug:
-    msg: "disable_network_config.txt exists"
-  when: disable_network_config_file.stat.exists
-
-- name: Display "disable_network_config.txt" nonexistence status
-  debug:
-    msg: "disable_network_config.txt does not exist"
-  when: disable_network_config_file.stat.exists == false
-
-
-
 - name: Install isc-kea
   ansible.builtin.apt:
     name: kea
     update_cache: yes
   become: true
-  #when: disable_network_config_file.stat.exists == false
 
 - name: Copy kea-dhcp4.conf
   ansible.builtin.copy:
     src: ./kea-dhcp4.conf
     dest: /etc/kea/kea-dhcp4.conf
   become: true
-  #when: disable_network_config_file.stat.exists == false
 
 - name: Check for string with grep
   shell: cat /etc/dhcp/dhclient.conf | grep -E "^[^#].*dhcp-client-identifier = hardware"
   register: grep_result
   ignore_errors: yes
   failed_when: grep_result.rc != 0 and grep_result.rc != 1
-  #when: disable_network_config_file.stat.exists == false
   
 - name: Task if string found via grep
   shell: echo send dhcp-client-identifier = hardware\; >> /etc/dhcp/dhclient.conf
-  when: grep_result.rc == 1 and disable_network_config_file.stat.exists == false
+  when: grep_result.rc == 1
 
 - name: Restart DHCP if dhclient.conf updated
   shell: dhclient -r && dhclient
-  when: grep_result.rc == 1 and disable_network_config_file.stat.exists == false
+  when: grep_result.rc == 1
 
 # - name: Copy RAEConnect systemd service file
 #   ansible.builtin.copy:
@@ -114,4 +92,3 @@
     service: kea-dhcp4-server.service
     state: "started"
   become: true
-  #when: disable_network_config_file.stat.exists == false
