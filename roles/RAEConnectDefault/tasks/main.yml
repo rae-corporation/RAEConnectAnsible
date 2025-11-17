@@ -43,14 +43,14 @@
 - name: Check if update staging file exists
   ansible.builtin.stat:
     path: /stageBranchEnabled.txt
-    register: stage_branch
+  register: stage_branch
 
 # IF NOT, COPY NORMAL UPDATE SCRIPT
 - name: Copy Update.sh
   ansible.builtin.copy:
     src: ./Update.sh
     dest: /RAEConnect/update
-    when: stage_branch == 0
+    when: stage_branch.stat.exists == false
   become: true
 
 # IF SO, COPY STAGED UPDATE SCRIPT
@@ -58,7 +58,7 @@
   ansible.builtin.copy:
     src: ./StagedUpdate.sh
     dest: /RAEConnect/update
-    when: stage_branch == 1
+    when: stage_branch.stat.exists == true
   become: true
 
 
