@@ -1,10 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\roles",
-    "\\roles\\RAEConnectDefault",
-    "\\roles\\RAEConnectDefault\\tasks"
+    ""
   ],
-  "SelectedNode": "\\isc-dhcp-server",
   "PreviewInSolutionExplorer": false
 }
