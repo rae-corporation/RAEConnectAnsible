@@ -50,7 +50,7 @@
   ansible.builtin.copy:
     src: ./Update.sh
     dest: /RAEConnect/update
-    when: not stage_branch.stat.exists
+    when: stage_branch == 0
   become: true
 
 # IF SO, COPY STAGED UPDATE SCRIPT
@@ -58,7 +58,7 @@
   ansible.builtin.copy:
     src: ./StagedUpdate.sh
     dest: /RAEConnect/update
-    when: stage_branch.stat.exists
+    when: stage_branch == 1
   become: true
 
 
