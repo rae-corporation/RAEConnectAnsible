@@ -23,7 +23,7 @@
     minute: "*/5"
     hour: "*"
     # ------------------------------------- IMPORTANT! CHANGE BRANCH NAME WHEN MERGING! -VVV- ----------------------------------------------------
-    job: "ansible-pull -U https://github.com/rae-corporation/RAEConnectAnsible.git -C real_test site.yml >> /var/log/rae_connect_asnible.log 2>&1"
+    job: "ansible-pull -U https://github.com/rae-corporation/RAEConnectAnsible.git -C main site.yml >> /var/log/rae_connect_asnible.log 2>&1"
 
 - name: Install dotnet SDK
   ansible.builtin.apt:
